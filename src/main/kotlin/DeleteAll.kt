@@ -1,14 +1,24 @@
 package exemples
 
+import java.sql.Connection
 import java.sql.DriverManager
+import java.sql.SQLException
 
 fun deleteAll(){
     val url = "jdbc:sqlite:identifier.sqlite"
-    val con = DriverManager.getConnection(url)
-    val st = con.createStatement()
+    val con: Connection
 
-    st.executeUpdate("DELETE FROM USUARIO")
+    try {
+        con = DriverManager.getConnection(url)
 
-    st.close()
-    con.close()
+        val st = con.createStatement()
+
+        st.executeUpdate("DELETE FROM USUARIO")
+
+        st.close()
+        con.close()
+    } catch (e: SQLException) {
+        println("Aun no existe la tabla")
+        showMenu()
+    }
 }
