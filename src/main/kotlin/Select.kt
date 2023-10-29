@@ -40,7 +40,6 @@ fun select() {
         } else {
             val niceInput = if (input.endsWith(",")) input.removeSuffix(",") else input
             val sentenciaSQL = "SELECT $niceInput FROM USUARIO"
-            val items = niceInput.split(",")
             val rs = st.executeQuery(sentenciaSQL)
 
             val metaData = rs.metaData
@@ -57,7 +56,7 @@ fun select() {
             var rowCount = 0
             while (rs.next()) {
                 for (i in 1..columnCount) {
-                    val columnName = metaData.getColumnName(i)
+
                     val columnType = metaData.getColumnType(i)
 
                     if (columnType == java.sql.Types.INTEGER) {
